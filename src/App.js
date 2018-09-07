@@ -1,17 +1,38 @@
 import React, { Component } from "react";
-import FormResgister from "./components/form/FormResgister";
+import AppProvider from "./AppProvider";
+import { ButtonList } from "./stepper/ButtonList";
+import FormWizard from "./stepper/FormWizard";
+import Step from "./stepper/StepList/Step";
+import StepListContainer from "./containers/StepListContainer";
+import NextContainer from "./containers/NextContainer";
+import PreviousContainer from "./containers/PreviousContainer";
+import { Billing, Mailing, Resgister } from "./stepper/StepList/Steps";
+import { StepHeader, StepAction } from "./stepper/StepHeader";
 
 class App extends Component {
-  handleSubmit = value => {
-    alert(value);
-  };
-  render() {
-    return (
-      <div className="container mt-5">
-        <FormResgister handleSubmit={this.handleSubmit} />{" "}
-      </div>
-    );
-  }
+	handleSubmit = value => {
+		alert(value);
+	};
+	render() {
+		return (
+			<AppProvider>
+				<FormWizard>
+					<StepHeader>
+						<StepAction />
+					</StepHeader>
+					<StepListContainer>
+						<Step render={Resgister} />
+						<Step render={Mailing} />
+						<Step render={Billing} />
+					</StepListContainer>
+					<ButtonList>
+						<NextContainer />
+						<PreviousContainer />
+					</ButtonList>
+				</FormWizard>
+			</AppProvider>
+		);
+	}
 }
 
 export default App;

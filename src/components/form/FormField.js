@@ -97,7 +97,7 @@ export default ({
       id="terms"
       component={CustomCheckbox}
     />{" "}
-    {
+    {dirty && (
       <button
         disabled={isSubmitting}
         className="btn btn-success form-control btn-lg"
@@ -105,6 +105,6 @@ export default ({
       >
         Submit{" "}
       </button>
-    }{" "}
+    )}{" "}
   </Form>
 );
