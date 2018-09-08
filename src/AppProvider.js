@@ -32,13 +32,13 @@ export default class AppProvider extends Component {
 		this.setState({ totalStep: totalStep - 1 });
 	};
 	render() {
-		var { activeStepIndex } = this.state;
+		var { activeStepIndex, totalStep } = this.state;
 		var { children } = this.props;
-		console.log(activeStepIndex);
 		return (
 			<Provider
 				value={{
 					activeStepIndex,
+					totalStep,
 					onNextStep: this.onNextStep,
 					onPreviousStep: this.onPreviousStep,
 					getTotalSteps: this.getTotalSteps,

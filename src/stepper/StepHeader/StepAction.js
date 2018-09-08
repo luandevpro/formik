@@ -3,35 +3,67 @@ import styled from "styled-components";
 
 export default class StepAction extends Component {
 	render() {
+		var { activeStepIndex, totalStep } = this.props;
+		var actives = [];
+		if (activeStepIndex === 0) {
+			actives.push(true);
+		}
+		console.log(actives);
 		return (
 			<StepWrapper>
-				<StepChild>
-					<div>1</div>
-				</StepChild>
-				<div>Order Details</div>
-				<div>Payments</div>
+				<StepChild active={true}>Order</StepChild>
+				<StepChild active={true}>Order Details</StepChild>
+				<StepChild active={false}>Payments</StepChild>
 			</StepWrapper>
 		);
 	}
 }
 
-export const StepWrapper = styled.div`
+export const StepWrapper = styled.ul`
 	position: relative;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 50px;
+	counter-reset: step;
+	padding: 0;
 `;
 
-export const StepChild = styled.div`
+export const StepChild = styled.li`
 	position: relative;
-	border-radius: 50%;
-	border: 1px solid powderblue;
-	width: 50px;
-	height: 50px;
-	div {
+	list-style-type: none;
+	display: grid;
+	justify-content: center;
+	&:before {
+		content: counter(step);
+		counter-increment: step;
+		display: block;
+		border: 1px solid red;
+		border-radius: 50%;
+		margin-bottom: 15px;
+		width: 50px;
+		height: 50px;
+		text-align: center;
+		line-height: 50px;
+		background: #fff;
+		z-index: 999;
+	}
+	&:after {
+		background: red;
+		height: 1px;
+		width: 100%;
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin: 0 auto;
+		content: "";
+		top: 25px;
+		left: -50%;
+	}
+	&:first-child:after {
+		content: none;
+	}
+	&:before {
+		color: ${props => (props.active ? "green" : "red")};
+		border: 1px solid ${props => (props.active ? "green" : "red")};
+	}
+	&:after {
+		background: ${props => (props.active ? "green" : "red")};
 	}
 `;
