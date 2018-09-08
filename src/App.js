@@ -6,7 +6,7 @@ import Step from "./stepper/StepList/Step";
 import StepListContainer from "./containers/StepListContainer";
 import NextContainer from "./containers/NextContainer";
 import PreviousContainer from "./containers/PreviousContainer";
-import { Billing, Mailing, Resgister } from "./stepper/StepList/Steps";
+import { Billing, Mailing, Resgister, Success } from "./stepper/StepList/Steps";
 import { StepHeader } from "./stepper/StepHeader";
 import StepActionContainer from "./containers/StepActionContainer";
 
@@ -25,6 +25,7 @@ class App extends Component {
 						<Step render={Resgister} />
 						<Step render={Mailing} />
 						<Step render={Billing} />
+						<Step render={Success} />
 					</StepListContainer>
 					<ButtonList>
 						<NextContainer />

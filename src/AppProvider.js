@@ -8,7 +8,7 @@ export default class AppProvider extends Component {
 	};
 	onNextStep = () => {
 		var { activeStepIndex, totalStep } = this.state;
-		if (activeStepIndex < totalStep) {
+		if (activeStepIndex < totalStep - 1) {
 			this.setState(({ activeStepIndex }) => {
 				return {
 					activeStepIndex: activeStepIndex + 1,
@@ -29,7 +29,7 @@ export default class AppProvider extends Component {
 		return activeStepIndex;
 	};
 	getTotalSteps = totalStep => {
-		this.setState({ totalStep: totalStep - 1 });
+		this.setState({ totalStep: totalStep });
 	};
 	render() {
 		var { activeStepIndex, totalStep } = this.state;

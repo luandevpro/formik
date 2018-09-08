@@ -2,18 +2,42 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class StepAction extends Component {
+	showActive = (totalStep, activeStepIndex) => {
+		var result = Array(totalStep).fill(false);
+		if (activeStepIndex === 0) {
+			result[activeStepIndex] = true;
+			return result;
+		}
+		return result;
+	};
 	render() {
 		var { activeStepIndex, totalStep } = this.props;
-		var actives = [];
-		if (activeStepIndex === 0) {
-			actives.push(true);
-		}
-		console.log(actives);
+		var active = this.showActive(totalStep, activeStepIndex);
+		console.log(active);
 		return (
 			<StepWrapper>
 				<StepChild active={true}>Order</StepChild>
-				<StepChild active={true}>Order Details</StepChild>
-				<StepChild active={false}>Payments</StepChild>
+				<StepChild
+					active={
+						activeStepIndex === 1 ||
+						activeStepIndex === 2 ||
+						activeStepIndex === 3
+							? true
+							: false
+					}
+				>
+					Order Details
+				</StepChild>
+				<StepChild
+					active={
+						activeStepIndex === 2 || activeStepIndex === 3 ? true : false
+					}
+				>
+					Payments
+				</StepChild>
+				<StepChild active={activeStepIndex === 3 ? true : false}>
+					Success
+				</StepChild>
 			</StepWrapper>
 		);
 	}
@@ -22,10 +46,11 @@ export default class StepAction extends Component {
 export const StepWrapper = styled.ul`
 	position: relative;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: 50px;
 	counter-reset: step;
 	padding: 0;
+	margin-bottom: 80px;
 `;
 
 export const StepChild = styled.li`
@@ -37,7 +62,7 @@ export const StepChild = styled.li`
 		content: counter(step);
 		counter-increment: step;
 		display: block;
-		border: 1px solid red;
+		border: 3px solid red;
 		border-radius: 50%;
 		margin-bottom: 15px;
 		width: 50px;
@@ -49,7 +74,7 @@ export const StepChild = styled.li`
 	}
 	&:after {
 		background: red;
-		height: 1px;
+		height: 3px;
 		width: 100%;
 		position: absolute;
 		content: "";
@@ -61,7 +86,7 @@ export const StepChild = styled.li`
 	}
 	&:before {
 		color: ${props => (props.active ? "green" : "red")};
-		border: 1px solid ${props => (props.active ? "green" : "red")};
+		border: 3px solid ${props => (props.active ? "green" : "red")};
 	}
 	&:after {
 		background: ${props => (props.active ? "green" : "red")};
