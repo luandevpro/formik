@@ -9,6 +9,7 @@ import PreviousContainer from "./containers/PreviousContainer";
 import { Billing, Mailing, Resgister, Success } from "./stepper/StepList/Steps";
 import { StepHeader } from "./stepper/StepHeader";
 import StepActionContainer from "./containers/StepActionContainer";
+import FormResgister from "./components/form/FormResgister";
 
 class App extends Component {
 	handleSubmit = value => {
@@ -22,6 +23,7 @@ class App extends Component {
 						<StepActionContainer />
 					</StepHeader>
 					<StepListContainer>
+						<FormResgister />
 						<Step render={Resgister} />
 						<Step render={Mailing} />
 						<Step render={Billing} />
