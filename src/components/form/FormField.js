@@ -23,7 +23,7 @@ export default ({
       id="email"
       placeholder="Enter your email"
       component={CustomInput}
-    />{" "}
+    />
     <Field
       label="Password"
       name="password"
@@ -56,6 +56,15 @@ export default ({
       checked={values.gender === "female"}
       label="FeMale"
       value="female"
+      className="mr-2"
+      component={CustomRadio}
+    />{" "}
+    <Field
+      name="gender"
+      id="other"
+      checked={values.gender === "other"}
+      label="Other"
+      value="other"
       className="mr-2"
       component={CustomRadio}
     />{" "}
