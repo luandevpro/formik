@@ -11,9 +11,7 @@ export default class StepAction extends Component {
 		return result;
 	};
 	render() {
-		var { activeStepIndex, totalStep } = this.props;
-		var active = this.showActive(totalStep, activeStepIndex);
-		console.log(active);
+		var { activeStepIndex } = this.props;
 		return (
 			<StepWrapper>
 				<StepChild active={true}>Order</StepChild>
