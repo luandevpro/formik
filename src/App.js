@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import FormResgister from "./components/form/FormResgister";
+import ListSliderContainer from "./container/ListSliderContainer";
+import AppProvider from "./AppProvider";
 
 class App extends Component {
   handleSubmit = value => {
@@ -8,7 +9,9 @@ class App extends Component {
   render() {
     return (
       <div className="container mt-5">
-        <FormResgister handleSubmit={this.handleSubmit} />{" "}
+        <AppProvider>
+          <ListSliderContainer />
+        </AppProvider>
       </div>
     );
   }
