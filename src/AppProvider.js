@@ -8,7 +8,7 @@ export default class AppProvider extends Component {
 			firstName: "",
 			lastName: "",
 			userName: "",
-			age: null,
+			age: "",
 			email: "",
 		},
 		totalStep: 0,

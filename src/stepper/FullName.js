@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Field } from "formik";
 import { Error, required } from "./../components/formik/Error";
-import Wizard from "./../components/formik/Wizard";
 
 export default class FullName extends Component {
 	render() {

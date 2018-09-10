@@ -36,7 +36,7 @@ class App extends Component {
 							validate={values => {
 								const errors = {};
 								if (!values.userName) {
-									errors.userName = "Required";
+									errors.userName = "UserName is Required";
 								}
 								return errors;
 							}}

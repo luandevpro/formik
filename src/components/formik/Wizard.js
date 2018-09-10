@@ -9,6 +9,7 @@ export default class FormWizard extends Component {
 		const activePage = React.Children.toArray(this.props.children)[
 			this.props.activeStepIndex
 		];
+		console.log(activePage.props.validate);
 		return activePage.props.validate ? activePage.props.validate(values) : {};
 	};
 
@@ -29,7 +30,6 @@ export default class FormWizard extends Component {
 		const { children, values, activeStepIndex, onPreviousStep } = this.props;
 		const activePage = React.Children.toArray(children)[activeStepIndex];
 		const isLastPage = activeStepIndex === React.Children.count(children) - 1;
-		console.log(isLastPage);
 		return (
 			<Formik
 				initialValues={values}
