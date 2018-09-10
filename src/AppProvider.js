@@ -1,21 +1,44 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Provider } from "./context";
 
-export default class AppProvider extends Component {
+export default class AppProvider extends PureComponent {
   state = {
     movies: [],
+    activeIndex: 3,
+    totalSlider: 0,
   };
   getMovies = result => {
-    console.log(result);
+    this.setState({
+      movies: result,
+    });
+  };
+  onNext = (by, value) => {
+    if (by === "next" || by === "previous") {
+      this.setState(({ activeIndex }) => {
+        return {
+          activeIndex: activeIndex + value,
+        };
+      });
+    }
+  };
+  getTotalSlider = totalSlider => {
+    this.setState({
+      totalSlider,
+    });
   };
   render() {
-    var { movies } = this.state;
+    var { movies, activeIndex, totalSlider } = this.state;
     var { children } = this.props;
+    console.log(totalSlider);
     return (
       <Provider
-        values={{
+        value={{
           movies,
+          activeIndex,
+          totalSlider,
           getMovies: this.getMovies,
+          onNext: this.onNext,
+          getTotalSlider: this.getTotalSlider,
         }}
       >
         {children}
