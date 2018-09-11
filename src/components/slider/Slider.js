@@ -20,6 +20,9 @@ export default class Slider extends Component {
 }
 
 export const SliderWrapper = styled.div`
+  display: inline-block;
+  margin-right: 25px;
+  width: 353px;
   img {
     width: 100%;
   }

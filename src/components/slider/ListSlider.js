@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -13,21 +13,26 @@ export default class ListSlider extends Component {
     movies.then(res => this.props.getMovies(res.data.results));
     this.props.getTotalSlider(React.Children.count(this.props.children));
   }
+  showIndex = i => {
+    console.log(i);
+  };
   render() {
     var { activeIndex, onNext, children } = this.props;
     const child = React.Children.map(children, (child, i) => {
       if (i < activeIndex && i >= activeIndex - 3) {
-        return child;
+        return <div onClick={() => this.showIndex(i)}>{child}</div>;
       }
     });
-    // console.log(React.Children.count(this.props.children));
     return (
       <ListSliderWrapper>
         {activeIndex > 3 && (
           <IoIosArrowBackWrap onClick={() => onNext("previous", -3)} />
         )}
-        <MovieGrip>{child}</MovieGrip>
-        <IoIosArrowForwardWrap onClick={() => onNext("next", 3)} />
+        <MovieGrip sliding>{child}</MovieGrip>
+        {Math.ceil(children.length / 3) * 3 ===
+        Math.ceil(activeIndex / 3) * 3 ? null : (
+          <IoIosArrowForwardWrap onClick={() => onNext("next", 3)} />
+        )}
       </ListSliderWrapper>
     );
   }
@@ -54,7 +59,13 @@ export const IoIosArrowForwardWrap = styled(IoIosArrowForward)`
   font-size: 30px;
 `;
 export const MovieGrip = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 14px;
+  ${"" /* display: flex; */}
+  ${"" /* grid-template-columns: repeat(auto-fit, 1fr); */} ${
+  "" /* grid-column-gap: 14px; */
+}
+  transition: transform 1s ease;
+  white-space: nowrap;
+  margin-right: 10px;
+  margin-left: 10px;
+  overflow: hidden;
 `;
