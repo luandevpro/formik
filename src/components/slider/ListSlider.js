@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import scrollTo from "./scrollToAnimate";
 export default class ListSlider extends Component {
   async componentDidMount() {
     const movies = axios({
@@ -13,26 +14,45 @@ export default class ListSlider extends Component {
     movies.then(res => this.props.getMovies(res.data.results));
     this.props.getTotalSlider(React.Children.count(this.props.children));
   }
-  showIndex = i => {
-    console.log(i);
+  onNext = () => {
+    this.props.onNext("next", 3);
+    var { carouselViewport } = this;
+    console.log(carouselViewport);
+    var numOfSlidesToScroll = 1;
+    var widthToScroll = 378;
+    var newPos =
+      carouselViewport.scrollLeft + widthToScroll * numOfSlidesToScroll;
+    // var newPos = carouselViewport.scrollLeft + carouselViewport.offsetWidth;
+    var timeToMoveOneSlide = 450;
+    var totalTimeMove = numOfSlidesToScroll * timeToMoveOneSlide;
+    scrollTo(carouselViewport, newPos, totalTimeMove, "scrollLeft");
+  };
+  onPrevious = () => {
+    var { carouselViewport } = this;
+    console.log(carouselViewport);
+    var numOfSlidesToScroll = 3;
+    var widthToScroll = 378;
+    var newPos =
+      carouselViewport.scrollLeft - widthToScroll * numOfSlidesToScroll;
+    // var newPos = carouselViewport.scrollLeft + carouselViewport.offsetWidth;
+    var timeToMoveOneSlide = 450;
+    var totalTimeMove = numOfSlidesToScroll * timeToMoveOneSlide;
+    scrollTo(carouselViewport, newPos, totalTimeMove, "scrollLeft");
   };
   render() {
-    var { activeIndex, onNext, children } = this.props;
+    var { activeIndex, onNext, onPrevious, children } = this.props;
     const child = React.Children.map(children, (child, i) => {
-      if (i < activeIndex && i >= activeIndex - 3) {
-        return <div onClick={() => this.showIndex(i)}>{child}</div>;
+      if (i >= 0) {
+        return <Fragment>{child}</Fragment>;
       }
     });
     return (
       <ListSliderWrapper>
-        {activeIndex > 3 && (
-          <IoIosArrowBackWrap onClick={() => onNext("previous", -3)} />
-        )}
-        <MovieGrip sliding>{child}</MovieGrip>
-        {Math.ceil(children.length / 3) * 3 ===
-        Math.ceil(activeIndex / 3) * 3 ? null : (
-          <IoIosArrowForwardWrap onClick={() => onNext("next", 3)} />
-        )}
+        <IoIosArrowBackWrap onClick={() => this.onPrevious()} />
+        <MovieGrip innerRef={carousel => (this.carouselViewport = carousel)}>
+          {child}
+        </MovieGrip>
+        <IoIosArrowForwardWrap onClick={() => this.onNext()} />
       </ListSliderWrapper>
     );
   }
@@ -59,13 +79,6 @@ export const IoIosArrowForwardWrap = styled(IoIosArrowForward)`
   font-size: 30px;
 `;
 export const MovieGrip = styled.div`
-  ${"" /* display: flex; */}
-  ${"" /* grid-template-columns: repeat(auto-fit, 1fr); */} ${
-  "" /* grid-column-gap: 14px; */
-}
-  transition: transform 1s ease;
   white-space: nowrap;
-  margin-right: 10px;
-  margin-left: 10px;
   overflow: hidden;
 `;

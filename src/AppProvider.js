@@ -4,7 +4,7 @@ import { Provider } from "./context";
 export default class AppProvider extends PureComponent {
   state = {
     movies: [],
-    activeIndex: 3,
+    activeIndex: 0,
     totalSlider: 0,
   };
   getMovies = result => {
@@ -12,13 +12,10 @@ export default class AppProvider extends PureComponent {
       movies: result,
     });
   };
+
   onNext = (by, value) => {
     if (by === "next" || by === "previous") {
-      this.setState(({ activeIndex }) => {
-        return {
-          activeIndex: activeIndex + value,
-        };
-      });
+      console.log("bfbf");
     }
   };
   getTotalSlider = totalSlider => {

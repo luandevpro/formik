@@ -8,7 +8,7 @@ class ListSliderContainer extends Component {
     var result = 0;
     if (movies.length > 0) {
       result = movies.map((movie, index) => {
-        return <Slider key={index} movies={movie} />;
+        return <Slider key={index} index={index} movies={movie} />;
       });
     }
     return result;
