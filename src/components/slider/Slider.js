@@ -4,31 +4,35 @@ import styled from "styled-components";
 const POSTER_PATH = "http://image.tmdb.org/t/p/w500";
 
 export default class Slider extends Component {
-  showIndex = i => {
-    console.log(i);
-  };
   render() {
     var {
       movies: { title, backdrop_path },
       index,
+      activeIndex,
     } = this.props;
     return (
-      <SliderWrapper onClick={() => this.showIndex(index)}>
-        <p>{title}</p>
+      <SliderWrapper show={activeIndex === index}>
         <div>
           <img src={`${POSTER_PATH}/${backdrop_path}`} alt={title} />
         </div>
+        <p>
+          {title} - {index}
+        </p>
       </SliderWrapper>
     );
   }
 }
 
 export const SliderWrapper = styled.div`
-  display: inline-block;
-  margin-right: 25px;
-  width: 353px;
+  margin-right: 40px;
+  max-width: 960px;
+  min-width: 160px;
   border-radius: 10px;
   img {
     width: 100%;
+  }
+  opacity: ${props => (props.show ? 1 : 0.7)}
+  &:hover {
+    opacity: 1;
   }
 `;
